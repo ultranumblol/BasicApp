@@ -1,32 +1,61 @@
 package com.yupao.app.ui.main
 
-import androidx.lifecycle.ViewModelProviders
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.cc.ktx_ext_base.base.BaseVMFragment
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.yupao.app.R
+import com.yupao.app.adapter.MainActivityAdapter
+import kotlinx.android.synthetic.main.main_fragment.*
 
-class MainFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MainFragment()
+class MainFragment : BaseVMFragment<MainViewModel>() {
+    override fun getLayoutResId(): Int = R.layout.main_fragment
+    override fun providerVMClass(): Class<MainViewModel>? = MainViewModel::class.java
+    private val mainadapter by lazy { MainActivityAdapter() }
+
+
+    override fun initView() {
+
+        initRv()
+        ViewCompat.setOnApplyWindowInsetsListener(
+            view!!
+        ) { _: View?, insetsCompat: WindowInsetsCompat ->
+            main_collapsingtoolbarlayout
+                .setPadding(0, insetsCompat.systemWindowInsetTop, 0, 0)
+            insetsCompat
+        }
     }
 
-    private lateinit var viewModel: MainViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+    private fun initRv() {
+        rv_main.run {
+            layoutManager = LinearLayoutManager(activity)
+        }
+        mainadapter.run {
+            rv_main.adapter = mainadapter
+        }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+    private val onItemChildClickListener =
+        BaseQuickAdapter.OnItemChildClickListener { _, view, _ ->
+            when (view.id) {
+                R.id.id_main_name -> {
+
+                }
+            }
+        }
+
+    override fun initData() {
+        refresh()
+    }
+
+    private fun refresh() {
+        mainadapter.setEnableLoadMore(false)
+        mViewModel.setdata()
+        mainadapter.addData(mViewModel.datas)
     }
 
 }
