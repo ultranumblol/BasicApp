@@ -1,12 +1,11 @@
 package com.yupao.app.ui.main
 
-
-import android.view.View
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.cc.ktx_ext_base.base.BaseVMFragment
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.yupao.app.R
 import com.yupao.app.adapter.MainActivityAdapter
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -19,36 +18,34 @@ class MainFragment : BaseVMFragment<MainViewModel>() {
 
 
     override fun initView() {
+        initpager()
 
-        initRv()
-        ViewCompat.setOnApplyWindowInsetsListener(
-            view!!
-        ) { _: View?, insetsCompat: WindowInsetsCompat ->
-            main_collapsingtoolbarlayout
-                .setPadding(0, insetsCompat.systemWindowInsetTop, 0, 0)
-            insetsCompat
-        }
     }
 
-    private fun initRv() {
+    private fun initpager() {
         rv_main.run {
             layoutManager = LinearLayoutManager(activity)
         }
         mainadapter.run {
             rv_main.adapter = mainadapter
+            onItemChildClickListener = this@MainFragment.onItemChildClickListener
         }
     }
 
     private val onItemChildClickListener =
-        BaseQuickAdapter.OnItemChildClickListener { _, view, _ ->
+        BaseQuickAdapter.OnItemChildClickListener { _, view, pos ->
             when (view.id) {
-                R.id.id_main_name -> {
-
+                R.id.ll_root -> {
+                    MaterialDialog(context!!).show {
+                        lifecycleOwner(this@MainFragment)
+                        message(text =mainadapter.getItem(pos)!!.name)
+                    }
                 }
             }
         }
 
     override fun initData() {
+        mViewModel.getHomeData()
         refresh()
     }
 
@@ -56,6 +53,16 @@ class MainFragment : BaseVMFragment<MainViewModel>() {
         mainadapter.setEnableLoadMore(false)
         mViewModel.setdata()
         mainadapter.addData(mViewModel.datas)
+    }
+
+    override fun startObserve() {
+        super.startObserve()
+        mViewModel.apply {
+
+
+
+        }
+
     }
 
 }
