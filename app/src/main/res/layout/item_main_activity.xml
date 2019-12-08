@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="com.yupao.app.R" alias="appR" />
         <variable
             name="informantion"
             type="com.yupao.app.model.bean.HomeData.Information" />
@@ -17,20 +17,34 @@
         android:layout_margin="5dp"
         android:background="#ffffff"
         android:backgroundTint="#ffffff"
-        android:padding="10dp"
         app:cardBackgroundColor="#ffffff"
         app:cardCornerRadius="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:orientation="vertical">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="@{informantion.user_name}" />
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    imageUrl="@{informantion.image}"
+                    imagePlaceholder="@{appR.mipmap.ic_launcher_round}"
+                    />
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="@{informantion.user_name}" />
+            </LinearLayout>
+
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"

@@ -19,6 +19,9 @@ class MainFragment : BaseVMFragment<MainViewModel>() {
     override fun initView() {
         initpager()
 
+        mainRefreshLayout.setOnRefreshListener {
+            refresh()
+        }
     }
 
     private fun initpager() {
@@ -44,25 +47,34 @@ class MainFragment : BaseVMFragment<MainViewModel>() {
         }
 
     override fun initData() {
-        mViewModel.getHomeData()
         refresh()
     }
 
     private fun refresh() {
         mainadapter.setEnableLoadMore(false)
-
+        mViewModel.getHomeData()
     }
 
     override fun startObserve() {
         super.startObserve()
         mViewModel.apply {
             uiState.observe(this@MainFragment, Observer {
-                it.showSuccess.let { data ->
+                mainRefreshLayout.isRefreshing = it.showLoading
+
+                it.showSuccess?.let { data ->
                     mainadapter.run {
-                        if (it.isRefresh) replaceData(data!!.information_list)
-                        else addData(data!!.information_list)
+//                        if (it.isRefresh) replaceData(data.information_list)
+//                        else addData(data.information_list)
+                        replaceData(data.information_list)
                         setEnableLoadMore(true)
                         loadMoreComplete()
+                    }
+                }
+
+                it.showError?.let { message ->
+                    MaterialDialog(context!!).show {
+                        lifecycleOwner(this@MainFragment)
+                        message(text = message)
                     }
                 }
             })

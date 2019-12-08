@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 abstract class BaseRetrofitClient {
     companion object {
-        private const val TIME_OUT = 3
+        private const val TIME_OUT = 20
     }
 
     private val client: OkHttpClient
@@ -18,7 +18,7 @@ abstract class BaseRetrofitClient {
             val builder = OkHttpClient.Builder()
             val logging = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger{
                 override fun log(message: String) {
-                    message.logd("http")
+                    message.logd("wgz")
                 }
             })
 
@@ -31,6 +31,8 @@ abstract class BaseRetrofitClient {
             logging.level = HttpLoggingInterceptor.Level.BASIC
             builder.addInterceptor(logging)
                 .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
+                .writeTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
+                .readTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
 
             handleBuilder(builder)
 

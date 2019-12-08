@@ -19,6 +19,13 @@ import kotlinx.coroutines.withContext
 
 class MainViewModel : BaseViewModel() {
 
+    sealed class MainFragmentType {
+        object MainFragment : MainFragmentType()
+        object SecondFragment : MainFragmentType()
+        object ThirdFragment : MainFragmentType()
+        object NO4Fragment : MainFragmentType()
+    }
+
     private val homeRepsitory by lazy { HomeRepsitory() }
     private val _uiState = MutableLiveData<MainFragmentUiModel>()
 
@@ -26,17 +33,32 @@ class MainViewModel : BaseViewModel() {
         get() = _uiState
 
 
-    fun getHomeData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = homeRepsitory.getHomeData()
-            withContext(Dispatchers.Main) {
+    fun getHomeData()  = getDataList(MainFragmentType.MainFragment)
+
+
+    private fun getDataList(fragmentType: MainFragmentType) {
+        viewModelScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) { emitHomeFragmentUiState(true) }
+            val result = when (fragmentType) {
+
+                MainFragmentType.MainFragment -> homeRepsitory.getHomeData()
+                MainFragmentType.SecondFragment -> homeRepsitory.getHomeData()
+                MainFragmentType.ThirdFragment -> homeRepsitory.getHomeData()
+                MainFragmentType.NO4Fragment -> homeRepsitory.getHomeData()
+            }
+            withContext(Dispatchers.Main){
                 if (result is Result.Success) {
                     result.toString().logd(tag = "wgz")
-                    emitHomeFragmentUiState(showSuccess = result.data)
+                    emitHomeFragmentUiState(showSuccess = result.data,showLoading = false)
+                }
+                else if (result is Result.Error){
+                    emitHomeFragmentUiState(showLoading = false, showError = result.exception.message)
                 }
             }
         }
+
     }
+
 
     private fun emitHomeFragmentUiState(
         showLoading: Boolean = false,

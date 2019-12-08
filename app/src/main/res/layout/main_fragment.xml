@@ -15,13 +15,13 @@
   -->
 <!-- Specifying an id for the CoordinatorLayout allows the expanded/collapsed state of the
      CollapsingToolbarLayout to be saved and restored by the Android system. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cat_toc_coordinator_layout"
+    android:id="@+id/mainRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_main"
@@ -29,4 +29,4 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

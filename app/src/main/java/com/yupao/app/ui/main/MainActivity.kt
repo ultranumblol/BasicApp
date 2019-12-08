@@ -10,9 +10,9 @@ import kotlinx.android.synthetic.main.main_activity.*
 class MainActivity : BaseActivity() {
     private val fragmentList = arrayListOf<Fragment>()
     private val testfragment by lazy { MainFragment() }
-    private val testfragment2 by lazy { MainFragment() }
-    private val testfragment3 by lazy { MainFragment() }
-    private val testfragment4 by lazy { MainFragment() }
+    private val testfragment2 by lazy { SecondFragment() }
+    private val testfragment3 by lazy { SecondFragment() }
+    private val testfragment4 by lazy { SecondFragment() }
 
     override fun getLayoutResId(): Int = R.layout.main_activity
 
