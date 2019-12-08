@@ -1,5 +1,6 @@
 package com.yupao.app.model.api
 
+import com.cc.ktx_ext_base.ext.logd
 import com.yupao.app.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,13 +16,19 @@ abstract class BaseRetrofitClient {
     private val client: OkHttpClient
         get() {
             val builder = OkHttpClient.Builder()
-            val logging = HttpLoggingInterceptor()
+            val logging = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger{
+                override fun log(message: String) {
+                    message.logd("http")
+                }
+            })
+
+
             if (BuildConfig.DEBUG) {
                 logging.level = HttpLoggingInterceptor.Level.BODY
             } else {
                 logging.level = HttpLoggingInterceptor.Level.BASIC
             }
-
+            logging.level = HttpLoggingInterceptor.Level.BASIC
             builder.addInterceptor(logging)
                 .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
 

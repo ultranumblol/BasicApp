@@ -27,7 +27,7 @@ class MainActivity : BaseActivity() {
     override fun initView() {
         main_toolbar.apply {
             setTitleTextColor(Color.WHITE)
-            title = "测试"
+            title = "鱼泡"
         }
         viewPager.apply {
             currentItem = 0

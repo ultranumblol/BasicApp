@@ -1,13 +1,12 @@
 package com.yupao.app.ui.main
 
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.cc.ktx_ext_base.base.BaseVMFragment
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.yupao.app.R
-import com.yupao.app.adapter.MainActivityAdapter
 import kotlinx.android.synthetic.main.main_fragment.*
 
 
@@ -38,7 +37,7 @@ class MainFragment : BaseVMFragment<MainViewModel>() {
                 R.id.ll_root -> {
                     MaterialDialog(context!!).show {
                         lifecycleOwner(this@MainFragment)
-                        message(text =mainadapter.getItem(pos)!!.name)
+                        message(text = mainadapter.getItem(pos)!!.detail)
                     }
                 }
             }
@@ -51,16 +50,22 @@ class MainFragment : BaseVMFragment<MainViewModel>() {
 
     private fun refresh() {
         mainadapter.setEnableLoadMore(false)
-        mViewModel.setdata()
-        mainadapter.addData(mViewModel.datas)
+
     }
 
     override fun startObserve() {
         super.startObserve()
         mViewModel.apply {
-
-
-
+            uiState.observe(this@MainFragment, Observer {
+                it.showSuccess.let { data ->
+                    mainadapter.run {
+                        if (it.isRefresh) replaceData(data!!.information_list)
+                        else addData(data!!.information_list)
+                        setEnableLoadMore(true)
+                        loadMoreComplete()
+                    }
+                }
+            })
         }
 
     }

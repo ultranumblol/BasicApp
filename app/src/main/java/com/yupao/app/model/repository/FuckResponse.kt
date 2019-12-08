@@ -1,3 +1,3 @@
 package com.yupao.app.model.repository
 
-data class FuckResponse<out T>(val errorCode: Int, val errorMsg: String, val data: T)
+data class FuckResponse<out T>(val data: T)

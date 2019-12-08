@@ -1,5 +1,6 @@
 package com.yupao.app.model.api
 
+import com.cc.ktx_ext_base.ext.logd
 import com.yupao.app.model.repository.FuckResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
@@ -25,16 +26,13 @@ open class BaseRepository {
         }
     }
 
-    suspend fun <T : Any> executeResponse(response: FuckResponse<T>, successBlock: (suspend CoroutineScope.() -> Unit)? = null,
+    suspend fun <T : Any> executeResponse(response: T, successBlock: (suspend CoroutineScope.() -> Unit)? = null,
                                           errorBlock: (suspend CoroutineScope.() -> Unit)? = null): Result<T> {
+
         return coroutineScope {
-            if (response.errorCode == -1) {
-                errorBlock?.let { it() }
-                Result.Error(IOException(response.errorMsg))
-            } else {
                 successBlock?.let { it() }
-                Result.Success(response.data)
-            }
+                Result.Success(response)
+
         }
     }
 

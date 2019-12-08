@@ -11,10 +11,11 @@ class HomeRepsitory() : BaseRepository() {
 
     suspend fun getHomeData(): Result<HomeData> {
         return safeApiCall(call = { requestHomedata() }, errorMessage = "网络错误")
-
     }
 
+    suspend fun requestHomedata(): Result<HomeData> {
 
-    suspend fun requestHomedata(): Result<HomeData> =
-        executeResponse(AppClient.service.getHomeData())
+       return executeResponse(AppClient.service.getHomeData())
+    }
+
 }

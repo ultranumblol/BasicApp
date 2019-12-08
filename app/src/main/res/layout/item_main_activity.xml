@@ -1,26 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-            name="name"
-            type="com.yupao.app.model.bean.MainList" />
+            name="informantion"
+            type="com.yupao.app.model.bean.HomeData.Information" />
+
     </data>
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/ll_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ll_root"
-        android:orientation="vertical">
+        android:layout_margin="5dp"
+        android:background="#ffffff"
+        android:backgroundTint="#ffffff"
+        android:padding="10dp"
+        app:cardBackgroundColor="#ffffff"
+        app:cardCornerRadius="10dp">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:id="@+id/id_main_name"
-            android:text="@{name.name}"
-            android:textColor="@color/colorAccent"
-            android:textSize="16dp" />
-    </LinearLayout>
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@{informantion.user_name}" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@{informantion.detail}" />
+
+        </LinearLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
 </layout>
