@@ -3,6 +3,7 @@ package com.yupao.app.model.api
 import com.cc.ktx_ext_base.ext.logd
 import com.yupao.app.model.bean.HomeData
 import com.yupao.app.model.repository.FuckResponse
+import com.yupao.app.model.repository.OkResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 
@@ -26,6 +27,20 @@ open class BaseRepository {
             Result.Error(IOException(errorMessage, e))
         }
     }
+    suspend fun <T : Any> executeResponse(response: OkResponse<T>, successBlock: (suspend CoroutineScope.() -> Unit)? = null,
+                                          errorBlock: (suspend CoroutineScope.() -> Unit)? = null): Result<T> {
+        return coroutineScope {
+            if (response.errcode == "ok") {
+                successBlock?.let { it() }
+                Result.Success(response.result)
+            } else {
+                errorBlock?.let { it() }
+                Result.Error(IOException(response.errmsg))
+
+            }
+        }
+    }
+
 
     suspend fun <T : Any> executeResponse(
         response: T, successBlock: (suspend CoroutineScope.() -> Unit)? = null,
@@ -33,6 +48,7 @@ open class BaseRepository {
     ): Result<T> {    // response.toString() + "jieguo".logd("wgz")
         val type = when (response) {
             is HomeData -> 1
+            is String -> 1
             else -> -1
         }
         return coroutineScope {

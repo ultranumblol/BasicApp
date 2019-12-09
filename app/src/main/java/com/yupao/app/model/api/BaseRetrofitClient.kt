@@ -28,7 +28,7 @@ abstract class BaseRetrofitClient {
             } else {
                 logging.level = HttpLoggingInterceptor.Level.BASIC
             }
-            logging.level = HttpLoggingInterceptor.Level.BASIC
+            logging.level = HttpLoggingInterceptor.Level.BODY
             builder.addInterceptor(logging)
                 .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
                 .writeTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)

@@ -32,6 +32,7 @@ android {
 }
 
 dependencies {
+    def paging_version = "2.1.0"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -54,6 +55,7 @@ dependencies {
     implementation project(path: ':ktx_ext_base')
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
+    implementation "androidx.paging:paging-runtime:$paging_version"
     //cookie持久化
     implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
     implementation 'androidx.cardview:cardview:1.0.0'

@@ -1,3 +1,3 @@
 package com.yupao.app.model.repository
 
-data class OkResponse<out T>(val errorCode: Int, val errorMsg: String, val data: T)
+data class OkResponse<out T>(val errcode: String, val errmsg: String, val result: T)

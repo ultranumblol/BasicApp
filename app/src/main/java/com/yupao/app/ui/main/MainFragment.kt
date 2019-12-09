@@ -5,8 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.cc.ktx_ext_base.base.BaseVMFragment
+import com.cc.ktx_ext_base.ext.startKtxActivity
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.yupao.app.R
+import com.yupao.app.ui.login.LoginAcitivty
 import kotlinx.android.synthetic.main.main_fragment.*
 
 
@@ -38,10 +40,11 @@ class MainFragment : BaseVMFragment<MainViewModel>() {
         BaseQuickAdapter.OnItemChildClickListener { _, view, pos ->
             when (view.id) {
                 R.id.ll_root -> {
-                    MaterialDialog(context!!).show {
+                   /* MaterialDialog(context!!).show {
                         lifecycleOwner(this@MainFragment)
                         message(text = mainadapter.getItem(pos)!!.detail)
-                    }
+                    }*/
+                   activity?.startKtxActivity<LoginAcitivty>()
                 }
             }
         }
