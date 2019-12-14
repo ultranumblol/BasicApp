@@ -23,11 +23,11 @@ abstract class BaseRetrofitClient {
             })
 
 
-            if (BuildConfig.DEBUG) {
-                logging.level = HttpLoggingInterceptor.Level.BODY
-            } else {
-                logging.level = HttpLoggingInterceptor.Level.BASIC
-            }
+//            if (BuildConfig.DEBUG) {
+//                logging.level = HttpLoggingInterceptor.Level.BODY
+//            } else {
+//                logging.level = HttpLoggingInterceptor.Level.BASIC
+//            }
             logging.level = HttpLoggingInterceptor.Level.BODY
             builder.addInterceptor(logging)
                 .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)

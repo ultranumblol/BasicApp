@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+//apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -33,7 +33,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
 }
 
 dependencies {
@@ -52,10 +57,18 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation 'androidx.ui:ui-framework:0.1.0-dev03'
+    implementation 'androidx.ui:ui-layout:0.1.0-dev03'
+    implementation 'androidx.ui:ui-material:0.1.0-dev03'
+    implementation 'androidx.ui:ui-tooling:0.1.0-dev03'
+    implementation 'androidx.ui:ui-foundation:0.1.0-dev03'
+    implementation 'androidx.ui:ui-animation:0.1.0-dev03'
+
 
 }
 
 //发布到 Bintray
+/*
 publish {
 
     userOrg = 'ultranumb'           //bintray.com 注册的用户名
@@ -64,4 +77,4 @@ publish {
     publishVersion = '1.0.0'         //版本号
     desc = 'Android Kotlin Util Code' //版本说明，随意
     website = 'https://github.com/'    //关于这个开源项目的网站，随意
-}
+}*/

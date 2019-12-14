@@ -8,7 +8,7 @@ import com.yupao.app.R
 import com.yupao.app.util.Preference
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginAcitivty : BaseVMActivity<LoginViewModel>() {
+class LoginActivity : BaseVMActivity<LoginViewModel>() {
     override fun getLayoutResId(): Int = R.layout.activity_login
     override fun providerVMClass(): Class<LoginViewModel>? = LoginViewModel::class.java
     private val isLogin by Preference(Preference.IS_LOGIN, false)

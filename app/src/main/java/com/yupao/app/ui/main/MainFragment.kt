@@ -8,7 +8,7 @@ import com.cc.ktx_ext_base.base.BaseVMFragment
 import com.cc.ktx_ext_base.ext.startKtxActivity
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.yupao.app.R
-import com.yupao.app.ui.login.LoginAcitivty
+import com.yupao.app.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.main_fragment.*
 
 
@@ -44,7 +44,7 @@ class MainFragment : BaseVMFragment<MainViewModel>() {
                         lifecycleOwner(this@MainFragment)
                         message(text = mainadapter.getItem(pos)!!.detail)
                     }*/
-                   activity?.startKtxActivity<LoginAcitivty>()
+                   activity?.startKtxActivity<LoginActivity>()
                 }
             }
         }
