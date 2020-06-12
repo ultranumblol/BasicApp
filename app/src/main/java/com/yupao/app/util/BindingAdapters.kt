@@ -30,10 +30,6 @@ fun bindGoneUnless(view: View, gone: Boolean) {
     }
 }
 
-@BindingAdapter("htmlText")
-fun bindHtmlText(view:TextView,html:String){
-    view.text = if (fromN()) Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY) else Html.fromHtml(html)
-}
 
 
 @BindingAdapter(

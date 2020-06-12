@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cc.ktx_ext_base.base.BaseViewModel
 import com.cc.ktx_ext_base.ext.logd
-import com.cc.ktx_ext_base.ext.showLog
 import com.yupao.app.model.api.AppClient
 import com.yupao.app.model.api.Result
 import com.yupao.app.model.bean.HomeData
