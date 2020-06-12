@@ -1,14 +1,14 @@
 package com.cc.ktx_ext_base.ext
 
 import android.util.Log
-import com.cc.ktx_ext_base.BuildConfig
 
 
 
 
-const val TAG = "ktx"
 
-var showLog = BuildConfig.DEBUG
+const val TAG = "wgz"
+
+
 
 private enum class LEVEL {
     V, D, I, W, E
@@ -21,7 +21,6 @@ fun String.logw(tag: String = TAG) = log(LEVEL.W, tag, this)
 fun String.loge(tag: String = TAG) = log(LEVEL.E, tag, this)
 
 private fun log(level: LEVEL, tag: String, message: String) {
-    if (!showLog) return
     when (level) {
         LEVEL.V -> Log.v(tag, message)
         LEVEL.D -> Log.d(tag, message)
